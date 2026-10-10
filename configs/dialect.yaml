@@ -1,0 +1,80 @@
+# ============================================
+# 🌾 UZHAVAN AI - Dialect Classifier Config
+# Tamil Dialect Classification Training
+# ============================================
+
+model:
+  # Two architectures to compare
+  architecture: "cnn_bilstm"  # cnn_bilstm | wav2vec_classifier
+  
+  cnn_bilstm:
+    n_mels: 80
+    cnn_channels: [32, 64, 128]
+    cnn_kernel_sizes: [3, 3, 3]
+    lstm_hidden_size: 128
+    lstm_num_layers: 2
+    lstm_bidirectional: true
+    dropout: 0.3
+    num_classes: 10
+  
+  wav2vec_classifier:
+    encoder_name: "facebook/wav2vec2-large-xlsr-53"
+    freeze_encoder: true
+    classifier_hidden_sizes: [256, 128]
+    dropout: 0.3
+    num_classes: 10
+
+dialects:
+  - "standard"
+  - "kongu"
+  - "madurai"
+  - "tirunelveli"
+  - "nellai"
+  - "thanjavur"
+  - "chennai"
+  - "northern"
+  - "southern"
+  - "code_mixed"
+
+training:
+  epochs: 50
+  batch_size: 32
+  learning_rate: 1.0e-4
+  weight_decay: 0.01
+  scheduler: "cosine"
+  warmup_epochs: 3
+  mixed_precision: true
+  gradient_accumulation_steps: 1
+  
+  save_best_model: true
+  checkpoint_dir: "models/dialect/checkpoints"
+  best_model_path: "models/dialect/best_dialect_model.pt"
+  
+  early_stopping: true
+  early_stopping_patience: 10
+  early_stopping_metric: "f1_macro"
+  early_stopping_mode: "max"
+  
+  log_dir: "results/dialect/tensorboard"
+  log_every_n_steps: 10
+
+data:
+  sample_rate: 16000
+  max_duration_seconds: 10
+  min_duration_seconds: 0.5
+  segment_duration: 5.0  # Fixed-length segments for classification
+  train_manifest: "datasets/tamil_rural/train/metadata.csv"
+  val_manifest: "datasets/tamil_rural/validation/metadata.csv"
+  test_manifest: "datasets/tamil_rural/test/metadata.csv"
+  num_workers: 4
+  pin_memory: true
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+  confusion_matrix: true
+  per_class_metrics: true
+  results_dir: "results/dialect"

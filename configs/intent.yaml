@@ -1,0 +1,64 @@
+# ============================================
+# 🌾 UZHAVAN AI - Intent Classifier Config
+# Tamil Agricultural Intent Classification
+# ============================================
+
+model:
+  name: "google/muril-base-cased"  # Multilingual BERT for Indian languages
+  architecture: "bert_classifier"
+  max_length: 128
+  num_classes: 14
+  dropout: 0.3
+  freeze_encoder_layers: 0  # 0 = fine-tune all layers
+
+intents:
+  - "crop_advice"
+  - "crop_disease"
+  - "fertilizer"
+  - "irrigation"
+  - "weather"
+  - "market_price"
+  - "government_scheme"
+  - "subsidy"
+  - "insurance"
+  - "public_service"
+  - "emergency"
+  - "general_question"
+  - "greeting"
+  - "unknown"
+
+training:
+  epochs: 20
+  batch_size: 32
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  scheduler: "linear"
+  mixed_precision: true
+  gradient_accumulation_steps: 1
+  
+  save_best_model: true
+  checkpoint_dir: "models/intent/checkpoints"
+  best_model_path: "models/intent/best_intent_model.pt"
+  
+  early_stopping: true
+  early_stopping_patience: 5
+  early_stopping_metric: "f1_macro"
+  early_stopping_mode: "max"
+  
+  log_dir: "results/intent/tensorboard"
+
+data:
+  train_path: "datasets/intent/train.csv"
+  val_path: "datasets/intent/validation.csv"
+  test_path: "datasets/intent/test.csv"
+  num_workers: 4
+  pin_memory: true
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "f1_macro"
+    - "f1_per_class"
+  confusion_matrix: true
+  results_dir: "results/intent"

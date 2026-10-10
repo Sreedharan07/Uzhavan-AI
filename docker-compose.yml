@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  uzhavan-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uzhavan_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=8000
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      - ./models:/app/models
+      - ./datasets:/app/datasets
+      - ./results:/app/results
+      - ./temp_uploads:/app/temp_uploads
+    restart: unless-stopped
+
+  data-collection:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uzhavan_data_collection
+    command: python data_collection/app.py
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./data_collection/storage:/app/data_collection/storage
+    restart: unless-stopped

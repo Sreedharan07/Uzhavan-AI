@@ -1,0 +1,81 @@
+# ============================================
+# 🌾 UZHAVAN AI - Audio Augmentation Config
+# Configurable augmentation pipeline
+# ============================================
+
+# Master switch
+enabled: true
+
+# Each augmentation has a probability of being applied
+transforms:
+  # Background noise
+  add_background_noise:
+    enabled: true
+    probability: 0.5
+    noise_types:
+      - "farm_machinery"
+      - "wind"
+      - "birds"
+      - "rain"
+      - "road"
+      - "village_ambience"
+    snr_db_range: [5, 20]  # Signal-to-noise ratio in dB
+    noise_dir: "datasets/noise_samples"
+  
+  # Gaussian noise
+  add_gaussian_noise:
+    enabled: true
+    probability: 0.3
+    min_amplitude: 0.001
+    max_amplitude: 0.015
+  
+  # Volume variation
+  gain:
+    enabled: true
+    probability: 0.4
+    min_gain_db: -6
+    max_gain_db: 6
+  
+  # Speed perturbation
+  time_stretch:
+    enabled: true
+    probability: 0.3
+    min_rate: 0.9
+    max_rate: 1.1
+  
+  # Pitch variation
+  pitch_shift:
+    enabled: true
+    probability: 0.3
+    min_semitones: -2
+    max_semitones: 2
+  
+  # Reverberation
+  room_simulator:
+    enabled: true
+    probability: 0.2
+    min_size: 3.0
+    max_size: 10.0
+  
+  # Time shift
+  shift:
+    enabled: true
+    probability: 0.3
+    min_shift: -0.5
+    max_shift: 0.5
+  
+  # Low/High pass filters
+  low_pass_filter:
+    enabled: true
+    probability: 0.2
+    min_cutoff: 2000
+    max_cutoff: 7500
+  
+  high_pass_filter:
+    enabled: true
+    probability: 0.2
+    min_cutoff: 50
+    max_cutoff: 500
+
+# Max augmentations applied per sample
+max_transforms_per_sample: 3

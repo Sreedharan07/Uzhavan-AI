@@ -1,0 +1,74 @@
+# ============================================
+# 🌾 UZHAVAN AI - ASR Training Configuration
+# Fine-tune Whisper for Tamil Dialect Speech
+# ============================================
+
+model:
+  name: "openai/whisper-small"
+  architecture: "whisper"  # whisper | wav2vec2 | conformer
+  language: "ta"  # Tamil
+  task: "transcribe"
+  use_peft: true
+  peft:
+    r: 16
+    lora_alpha: 32
+    lora_dropout: 0.1
+    target_modules:
+      - "q_proj"
+      - "v_proj"
+      - "k_proj"
+      - "o_proj"
+      - "fc1"
+      - "fc2"
+
+training:
+  epochs: 30
+  batch_size: 8
+  eval_batch_size: 8
+  learning_rate: 3.0e-5
+  warmup_steps: 500
+  weight_decay: 0.01
+  gradient_accumulation_steps: 4
+  mixed_precision: true  # FP16 training
+  max_grad_norm: 1.0
+  
+  # Checkpointing
+  save_best_model: true
+  save_every_n_epochs: 5
+  checkpoint_dir: "models/asr/checkpoints"
+  best_model_dir: "models/asr/best_model"
+  resume_from: null  # Path to checkpoint to resume from
+  
+  # Early Stopping
+  early_stopping: true
+  early_stopping_patience: 5
+  early_stopping_metric: "wer"
+  early_stopping_mode: "min"  # min for WER, max for accuracy
+  
+  # Logging
+  log_dir: "results/asr/tensorboard"
+  log_every_n_steps: 10
+  eval_every_n_epochs: 1
+
+data:
+  sample_rate: 16000
+  max_duration_seconds: 30
+  min_duration_seconds: 0.5
+  train_manifest: "datasets/tamil_rural/train/metadata.csv"
+  val_manifest: "datasets/tamil_rural/validation/metadata.csv"
+  test_manifest: "datasets/tamil_rural/test/metadata.csv"
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  
+  # Augmentation
+  augment_train: true
+  augmentation_config: "configs/augmentation.yaml"
+
+evaluation:
+  metrics:
+    - "wer"
+    - "cer"
+  dialect_wise: true
+  save_predictions: true
+  results_dir: "results/asr"

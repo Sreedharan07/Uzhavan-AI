@@ -1,0 +1,14 @@
+{
+  "fertilizers": [
+    {"tamil": "யூரியா", "english": "Urea", "type": "chemical", "nutrient": "N (46%)", "usage": "இலை வளர்ச்சிக்கு, நெல்-கரும்பு போன்றவற்றுக்கு"},
+    {"tamil": "டிஏபி", "english": "DAP (Diammonium Phosphate)", "type": "chemical", "nutrient": "N (18%) + P (46%)", "usage": "வேர் வளர்ச்சி, பூ பிடிக்க"},
+    {"tamil": "பொட்டாஷ்", "english": "MOP (Muriate of Potash)", "type": "chemical", "nutrient": "K (60%)", "usage": "காய்கனி தரத்துக்கு"},
+    {"tamil": "சூப்பர் பாஸ்பேட்", "english": "Single Super Phosphate", "type": "chemical", "nutrient": "P (16%) + S (11%)", "usage": "பயிறு வகைகளுக்கு"},
+    {"tamil": "தொழு உரம்", "english": "Farmyard Manure", "type": "organic", "nutrient": "NPK mixed", "usage": "மண் வளத்துக்கு அடி உரமாக"},
+    {"tamil": "மண்புழு உரம்", "english": "Vermicompost", "type": "organic", "nutrient": "NPK + micro", "usage": "அனைத்து பயிர்களுக்கும்"},
+    {"tamil": "பச்சை உரம்", "english": "Green Manure", "type": "organic", "nutrient": "N", "usage": "தக்கைப்பூண்டு உழவு செய்யவும்"},
+    {"tamil": "நிம் பிண்ணாக்கு", "english": "Neem Cake", "type": "organic", "nutrient": "NPK", "usage": "நிலப்பூச்சி கட்டுப்பாடு + உரம்"},
+    {"tamil": "ஜிங்க் சல்பேட்", "english": "Zinc Sulphate", "type": "micronutrient", "nutrient": "Zn", "usage": "நெல் நாற்றங்காலில்"},
+    {"tamil": "போரான்", "english": "Borax", "type": "micronutrient", "nutrient": "B", "usage": "பூ, காய் உதிர்வு தடுக்க"}
+  ]
+}
