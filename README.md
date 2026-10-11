@@ -203,7 +203,8 @@ Delta Tamil         XX%     XX%       XX%
 Chennai Tamil       XX%     XX%       XX%
 Code-Mixed          XX%     XX%       XX%
 ```
-*(All metrics auto-generated during evaluation run using `python ml/asr/evaluate.py`)*
+*(All metrics auto-generated during evaluation run using `python ml/asr/evaluate.py`)* 
+yet to updated
 
 ---
 
